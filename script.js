@@ -16,24 +16,30 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("Please provide a valid image URL!");
       return;
     }
+    
     // Create meme-gallery div and image
-    const memeGallery = createMemeElement('div', 'meme-gallery')
+    const memeGalleryDiv = createMemeElement('div', 'meme-gallery')
     const memeImage = createMemeElement('img', 'meme-image')
     memeImage.src = imageUrl;
     memeImage.alt = "Image from URL input.";
 
     // Create top and bottom text divs
-    const topText = createMemeElement('div', 'top-text', topText);
-    const bottomText = createMemeElement('div', 'bottom-text', bottomText);
+    const topTextDiv = createMemeElement('div', 'top-text', topText);
+    const bottomTextDiv = createMemeElement('div', 'bottom-text', bottomText);
 
     // Create 'x' to delete a meme
     const deleteSpan = createMemeElement('span', 'delete-meme', '\u00d7');
 
-    // Append elements to the memeGallery
-    memeGallery.append(memeImage, topText, bottomText, deleteSpan);
+    // Event listener on span to delete created meme
+    deleteSpan.addEventListener("click", function() {
+      deleteMeme(memeGalleryDiv);
+    });
+
+    // Append elements to the memeGalleryDiv
+    memeGalleryDiv.append(memeImage, topTextDiv, bottomTextDiv, deleteSpan);
 
     // Append to memeMuseum and save
-    memeMuseum.appendChild(memeGallery);
+    memeMuseum.appendChild(memeGalleryDiv);
     saveMeme();
   }
 
@@ -42,17 +48,24 @@ document.addEventListener("DOMContentLoaded", function () {
     event.preventDefault();
 
     const imageUrl = document.getElementById('img-url').value;
-    const topText = document.getElementById('top-text-input').value;
-    const bottomText = document.getElementById('bottom-text-input').value;
+    const topMemeText = document.getElementById('top-text-input').value;
+    const bottomMemeText = document.getElementById('bottom-text-input').value;
 
-    createMeme(imageUrl, topText,bottomText);
+    createMeme(imageUrl, topMemeText,bottomMemeText);
     memeForm.reset();
   }
   
-  memeForm.addEventListener("submit", memeFormSubmit);
-  deleteSpan.addEventListener("click", memeDeletion);
+  // Meme deletion
+  function deleteMeme(memeGallery) {
+    memeMuseum.removeChild(memeGallery);
+  }
+
+  
+
+  memeForm.addEventListener("submit", memeFormSubmit)
 });
 
+//*************************************************
 
 // document.addEventListener("DOMContentLoaded", function () {
 //   const memeForm = document.querySelector('.meme-input-form');
