@@ -43,32 +43,23 @@ body {
   padding: 20px;
 }
 
-.input-container {
-  background-color: var(--secondary);
+/* Input Container */
+.input-container, .meme-input-form {
   color: var(--page-text);
   font-weight: bold;
   box-shadow: inset 0 3px 4px var(--accent);
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 20px;
+  width: 100%;
+  border-radius: 10px;
 }
-
-/* h1 {
-  text-align: center;
-} */
-
-/* Meme info input section */
-
+.input-container {
+  background-color: var(--secondary);
+}
 .meme-input-form {
-  text-align: center;
-  background-color: var(--tertiary); 
-  box-shadow: inset 0 3px 4px var(--accent);
-  color: var(--page-text);
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  /* align-content: center; */
-  
+  background-color: var(--tertiary);
 }
 
 input {
@@ -76,17 +67,14 @@ input {
   color: var(--page-text);
   font-size: 16px;
   box-shadow: inset 0 3px 4px var(--accent);
-  display: block;
+  width: 100%;
+  max-width: 300px;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
 }
-/* .form-input {
-  align-self: center;
- /* display: flex;
-  align-items: center;
-  justify-content: center;
-  align-content: center;
-} */
-
-/* label {} */
 
 /* This makes the placeholder brighter; gives more contrast to the text*/
 ::placeholder {
@@ -94,66 +82,79 @@ input {
   text-align: center;
 }
  
-/* .button-wrapper {
-  display: flex;
-  align-content: center;
-  justify-content: center;
-}  */
+/* Generate Meme Button */
 .generate-meme {
-  background-color:var(--button);
+  background-color: var(--button);
   border-radius: 40px;
   font-size: 18px;
   color: var(--page-text);
   font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
+.generate-meme:hover {
+  opacity: 0.8;
+}
+
+
 /* Output section */
-/* .meme-museum {
+.meme-museum, .meme-gallery {
   display: flex;
   flex-wrap: wrap-reverse;
-  justify-content: space-evenly;
-  gap: 4rem;
-} */
+  justify-content: space-around;
+  gap: 20px; /* Adds space between items */
+  width: 100%;
+  max-width: 600px;
+}
+
 .meme-gallery {
   color: var(--meme-text);
   position: relative;
 }
 
+
 /*Result of the inputs combined*/
+
 img {
   height: 300px;
   width: 300px;
+  display: block;
   position: relative;
 }
 
 span {
+  position: absolute;
   top: 8px;
   right: 16px;
   color: var(--page-text);
-  position: absolute;
   font-family: impact;
   font-size: 2.5em;
 }
-.top-text {
-  top: 8px;
-  left: 16px;
-  position: absolute;  
+
+/* Text Styles (Top and Bottom) */
+.top-text, .bottom-text {
+  position: absolute;
   font-family: impact;
   font-size: 2.5em;
   text-transform: uppercase;
   color: white;
   letter-spacing: 1px;
   text-shadow: var(--meme-shadow);
+  text-align: center;
+  width: 100%;
+}
+
+.top-text {
+  top: 8px;
+  left: 16px;
 }
 
 .bottom-text {
   bottom: 8px;
   left: 16px;
-  position: absolute;
-  font-family: impact;
-  font-size: 2.5em;
-  text-transform: uppercase;
-  color: white;
-  letter-spacing: 1px;
-  text-shadow: var(--meme-shadow);
-} 
+}
+
+
