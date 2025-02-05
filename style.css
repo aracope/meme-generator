@@ -6,33 +6,41 @@
   --accent: #01353d;
   --page-text: #ebb45b;
   --button: #d1495bda;
-  --delete-meme:#01353d7e; 
-  /* --gap: 15px; */
+  --delete-meme: #01353d7e; 
   --meme-text: #ffffff;
-  /* details for the meme-shadow were taken from here: https://www.fabiofranchino.com/blog/how-to-make-a-meme-like-text-style-in-html-and-css/ */
   --meme-shadow: 2px 2px 0 #000,
-      -2px -2px 0 #000,
-      2px -2px 0 #000,
-      -2px 2px 0 #000,
-      0px 2px 0 #000,
-      2px 0px 0 #000,
-      0px -2px 0 #000,
-      -2px 0px 0 #000,
-      2px 2px 5px #000;
+                  -2px -2px 0 #000,
+                  2px -2px 0 #000,
+                  -2px 2px 0 #000,
+                  0px 2px 0 #000,
+                  2px 0px 0 #000,
+                  0px -2px 0 #000,
+                  -2px 0px 0 #000,
+                  2px 2px 5px #000;
 }
+/* details for the meme-shadow were taken from here: https://www.fabiofranchino.com/blog/how-to-make-a-meme-like-text-style-in-html-and-css/ */
 
+/* General Styles */
 body {
-
   background-color: var(--primary);
-  font-family: 'Impact', 'Arial';
+  font-family: 'Impact', 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  text-align: center;
 }
 
 .meme-generator-wrapper {
-  height: 100vh;
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
 }
 
 .input-container {
@@ -40,14 +48,14 @@ body {
   color: var(--page-text);
   font-weight: bold;
   box-shadow: inset 0 3px 4px var(--accent);
-  /* display: flex;
+  display: flex;
   flex-direction: column;
-  align-items: center; */
+  align-items: center;
 }
 
 /* h1 {
   text-align: center;
-}  */
+} */
 
 /* Meme info input section */
 
@@ -56,7 +64,11 @@ body {
   background-color: var(--tertiary); 
   box-shadow: inset 0 3px 4px var(--accent);
   color: var(--page-text);
-  /* align-self: center; */
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  /* align-content: center; */
+  
 }
 
 input {
@@ -66,22 +78,27 @@ input {
   box-shadow: inset 0 3px 4px var(--accent);
   display: block;
 }
-/* .form-input {} */
+/* .form-input {
+  align-self: center;
+ /* display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+} */
 
 /* label {} */
 
 /* This makes the placeholder brighter; gives more contrast to the text*/
 ::placeholder {
   color: var(--page-text);
+  text-align: center;
 }
-
-.button-wrapper {
-
-align-self: center;
-  /*display: flex;
-  justify-content: center;*/
-
-} 
+ 
+/* .button-wrapper {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}  */
 .generate-meme {
   background-color:var(--button);
   border-radius: 40px;
