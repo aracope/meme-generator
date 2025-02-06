@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Event listener on span to delete created meme
     deleteSpan.addEventListener("click", () => {
       memeMuseum.removeChild(memeGalleryDiv);
-      saveMeme();
+      saveMemes();
     });
 
     // Append elements to the memeGalleryDiv
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Append to memeMuseum and save
     memeMuseum.appendChild(memeGalleryDiv);
-    saveMeme();
+    saveMemes();
   }
 
   // Meme form submission
@@ -55,28 +55,25 @@ document.addEventListener("DOMContentLoaded", function () {
     createMeme(imageUrl, topText,bottomText);
     memeForm.reset();
   }
+
+  // Save memes to localStorage    
+  function saveMemes() {
+    //  console.log("Meme has been frozen in carbonite!");
+    let memes = [];
   
-  // Meme deletion
-  // function deleteMeme(memeGalleryDiv) {
-  //   memeMuseum.removeChild(memeGalleryDiv);
-  //   saveMeme(); // Saves to localStorage
-  // }
+    document.querySelectorAll('.meme-gallery').forEach(meme => {
+      const memeImage = meme.querySelector('.meme-image');
+      const topText = meme.querySelector('.top-text');
+      const bottomText = meme.querySelector('.bottom-text');
 
-  // Save memes to localStorage
-  function saveMeme() {
-  //  console.log("Meme has been frozen in carbonite!");
-  let memes = [];
+      // Skip any incomplete meme (e.g., no image, top or bottom text)
+      if(!memeImage || !topText || !bottomText) return;
 
-  document.querySelectorAll('.meme-gallery').forEach(meme => {
-    const imageUrl = meme.querySelector('.meme-image').src;
-    const topText = meme.querySelector('.top-text').innerText;
-    const bottomText = meme.querySelector('.bottom-text').innerText;
-
-    memes.push(`${imageUrl}|${topText}|${bottomText}`);
-  });
-  localStorage.setItem('savedMemes', memes.join(';;;'));
-  }
-
+      memes.push(`${memeImage.src}|${topText.innerText}|${bottomText.innerText}`);
+    });
+    localStorage.setItem('savedMemes', memes.join(';;;'));
+    }
+  
   // Load memes from localStorage
   function loadMemes() {
     const savedMemes = localStorage.getItem('savedMemes');
@@ -92,6 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
   }
+
   memeForm.addEventListener("submit", memeFormSubmit);
   loadMemes();
 });
