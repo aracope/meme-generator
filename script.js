@@ -53,9 +53,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const imageUrl = document.getElementById('img-url').value;
     const topText = document.getElementById('top-text-input').value;
     const bottomText = document.getElementById('bottom-text-input').value;
+    const imageUpload = document.getElementById('img-file').files[0];
+    
+    // Check if both an image URL and a file upload are provided
+    if (imageUrl && imageUpload) {
+      alert("Please provide only one image source: either an image URL or an uploaded file, not both.");
+      memeForm.reset();
+      return;
+    } 
 
-    // Create meme using form data
-    createMeme(imageUrl, topText, bottomText);
+    if (imageUpload) {
+      // If file is uploaded, read it as a data URL
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        createMeme(reader.result, topText, bottomText);
+      };
+      reader.readAsDataURL(imageUpload); // Convert image to data URL
+    } else if (imageUrl) {
+      // If URL is provided, use it directly
+      createMeme(imageUrl, topText, bottomText);
+    } else {
+      alert("Please provide either an image URL or an uploaded image.");
+      return;
+    }
+
     memeForm.reset(); // Reset form after submission
   }
 
