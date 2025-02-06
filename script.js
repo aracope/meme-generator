@@ -31,8 +31,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const deleteSpan = createMemeElement('span', 'delete-meme', '\u00d7');
 
     // Event listener on span to delete created meme
-    deleteSpan.addEventListener("click", function() {
-      deleteMeme(memeGalleryDiv);
+    deleteSpan.addEventListener("click", () => {
+      memeMuseum.removeChild(memeGalleryDiv);
+      saveMeme();
     });
 
     // Append elements to the memeGalleryDiv
@@ -48,22 +49,49 @@ document.addEventListener("DOMContentLoaded", function () {
     event.preventDefault();
 
     const imageUrl = document.getElementById('img-url').value;
-    const topMemeText = document.getElementById('top-text-input').value;
-    const bottomMemeText = document.getElementById('bottom-text-input').value;
+    const topText = document.getElementById('top-text-input').value;
+    const bottomText = document.getElementById('bottom-text-input').value;
 
-    createMeme(imageUrl, topMemeText,bottomMemeText);
+    createMeme(imageUrl, topText,bottomText);
     memeForm.reset();
   }
   
   // Meme deletion
-  function deleteMeme(memeGallery) {
-    memeMuseum.removeChild(memeGallery);
-  }
+  // function deleteMeme(memeGalleryDiv) {
+  //   memeMuseum.removeChild(memeGalleryDiv);
+  //   saveMeme(); // Saves to localStorage
+  // }
 
-  // Local storage
+  // Save memes to localStorage
   function saveMeme() {
-    console.log("Meme has been frozen in carbonite!")
+  //  console.log("Meme has been frozen in carbonite!");
+  let memes = [];
+
+  document.querySelectorAll('.meme-gallery').forEach(meme => {
+    const imageUrl = meme.querySelector('.meme-image').src;
+    const topText = meme.querySelector('.top-text').innerText;
+    const bottomText = meme.querySelector('.bottom-text').innerText;
+
+    memes.push(`${imageUrl}|${topText}|${bottomText}`);
+  });
+  localStorage.setItem('savedMemes', memes.join(';;;'));
   }
 
-  memeForm.addEventListener("submit", memeFormSubmit)
+  // Load memes from localStorage
+  function loadMemes() {
+    const savedMemes = localStorage.getItem('savedMemes');
+
+    if(savedMemes) {
+      const memesArray = savedMemes.split(';;;');
+
+      memesArray.forEach(memeData => {
+        const memeParts = memeData.split('|');
+        if(memeParts.length === 3) {
+          createMeme(memeParts[0], memeParts[1], memeParts[2]);
+        }
+      });
+    }
+  }
+  memeForm.addEventListener("submit", memeFormSubmit);
+  loadMemes();
 });

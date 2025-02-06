@@ -101,20 +101,22 @@ input {
 
 
 /* Output section */
-.meme-museum, .meme-gallery {
+.meme-museum {
   display: flex;
   flex-wrap: wrap-reverse;
-  justify-content: space-around;
-  gap: 20px; /* Adds space between items */
+  justify-content: center;
+  gap: 20px; /* Space between memes */
   width: 100%;
-  max-width: 600px;
+  max-width: 90vw;
 }
 
 .meme-gallery {
-  color: var(--meme-text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
+  width: 300px; /* Ensures consistent size */
 }
-
 
 /*Result of the inputs combined*/
 
@@ -132,6 +134,7 @@ span {
   color: var(--page-text);
   font-family: impact;
   font-size: 2.5em;
+  cursor: pointer;
 }
 
 /* Text Styles (Top and Bottom) */
@@ -156,5 +159,6 @@ span {
   bottom: 8px;
   left: 16px;
 }
+
 
 
