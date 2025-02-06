@@ -1,8 +1,8 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   const memeForm = document.querySelector('.meme-input-form');
   const memeMuseum = document.querySelector('.meme-museum');
 
-  // Helper function to create meme element with text
+  // Helper function to create meme element with conent and class
   function createMemeElement(tag, className, content = '') {
     const element = document.createElement(tag);
     if (className) element.classList.add(className);
@@ -16,7 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("Please provide a valid image URL!");
       return;
     }
-    
+    //**Future: Function that determines if src is actually a URL? */
+
     // Create meme-gallery div and image
     const memeGalleryDiv = createMemeElement('div', 'meme-gallery')
     const memeImage = createMemeElement('img', 'meme-image')
@@ -27,69 +28,76 @@ document.addEventListener("DOMContentLoaded", function () {
     const topTextDiv = createMemeElement('div', 'top-text', topText);
     const bottomTextDiv = createMemeElement('div', 'bottom-text', bottomText);
 
-    // Create 'x' to delete a meme
+    // Create 'x' to delete a created meme
     const deleteSpan = createMemeElement('span', 'delete-meme', '\u00d7');
 
     // Event listener on span to delete created meme
     deleteSpan.addEventListener("click", () => {
-      memeMuseum.removeChild(memeGalleryDiv);
-      saveMemes();
+      memeMuseum.removeChild(memeGalleryDiv); // Removes meme from the museum
+      saveMemes(); // Saves to localStorage
     });
 
     // Append elements to the memeGalleryDiv
     memeGalleryDiv.append(memeImage, topTextDiv, bottomTextDiv, deleteSpan);
 
-    // Append to memeMuseum and save
+    // Append memeGalleryDiv to memeMuseum and save to localStorage
     memeMuseum.appendChild(memeGalleryDiv);
     saveMemes();
   }
 
   // Meme form submission
   function memeFormSubmit(event) {
-    event.preventDefault();
+    event.preventDefault(); // Prevents reloading of page
 
+    // Get values from form input fields
     const imageUrl = document.getElementById('img-url').value;
     const topText = document.getElementById('top-text-input').value;
     const bottomText = document.getElementById('bottom-text-input').value;
 
-    createMeme(imageUrl, topText,bottomText);
-    memeForm.reset();
+    // Create meme using form data
+    createMeme(imageUrl, topText, bottomText);
+    memeForm.reset(); // Reset form after submission
   }
 
-  // Save memes to localStorage    
+  // Save created memes to localStorage    
   function saveMemes() {
-    //  console.log("Meme has been frozen in carbonite!");
     let memes = [];
-  
+
+    // Loop through all meme elements
     document.querySelectorAll('.meme-gallery').forEach(meme => {
       const memeImage = meme.querySelector('.meme-image');
       const topText = meme.querySelector('.top-text');
       const bottomText = meme.querySelector('.bottom-text');
 
       // Skip any incomplete meme (e.g., no image, top or bottom text)
-      if(!memeImage || !topText || !bottomText) return;
+      if (!memeImage || !topText || !bottomText) return;
 
+      // Store meme details as a string, format: 'imageUrl|topText|bottomText'
       memes.push(`${memeImage.src}|${topText.innerText}|${bottomText.innerText}`);
     });
+    // Save memes to localStorage as strings. Separate by ';;;' as a delimiter to indicate beginning/end of individual strings, unlikely to be used by user
     localStorage.setItem('savedMemes', memes.join(';;;'));
-    }
-  
+  }
+
   // Load memes from localStorage
   function loadMemes() {
     const savedMemes = localStorage.getItem('savedMemes');
 
-    if(savedMemes) {
+    if (savedMemes) {
       const memesArray = savedMemes.split(';;;');
 
       memesArray.forEach(memeData => {
         const memeParts = memeData.split('|');
-        if(memeParts.length === 3) {
+        if (memeParts.length === 3) {
+          // Recreates memes from the 3 parts of saved data
           createMeme(memeParts[0], memeParts[1], memeParts[2]);
         }
       });
     }
   }
-
+  // Event listener for form submission button
   memeForm.addEventListener("submit", memeFormSubmit);
+
+  // Loads saved memes when page is loaded
   loadMemes();
 });
