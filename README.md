@@ -1,7 +1,6 @@
 # Dank Meme Generator
 > Mobile friendly meme creation tool.
-![]
-(https://github.com/aracope/meme-generator/blob/main/memgenerator.gif)
+![gif](https://github.com/aracope/meme-generator/blob/main/memgenerator.gif)
 
 ## Features
 - Create Memes: Users can generate memes by either providing an image URL or uploading an image file.
