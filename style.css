@@ -5,8 +5,7 @@
   --tertiary: #30648e;
   --accent: #01353d;
   --page-text: #ebb45b;
-  --button: #d1495bda;
-  --delete-meme: #01353d7e; 
+  --button: rgba(209, 73, 91, 0.85);
   --meme-text: #ffffff;
   --meme-shadow: 2px 2px 0 #000,
                   -2px -2px 0 #000,
@@ -134,10 +133,11 @@ span {
   position: absolute;
   top: 6px;
   right: 14px;
-  color: var(--page-text);
+  color: var(--button);
   font-family: impact;
   font-size: 1.5em;
   cursor: pointer;
+  z-index: 2;
 }
 
 /* Text Styles (Top and Bottom) */
@@ -150,7 +150,9 @@ span {
   letter-spacing: 1px;
   text-shadow: var(--meme-shadow);
   text-align: center;
-  width: 100%;
+  max-width: 90%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .top-text {
